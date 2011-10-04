@@ -1,6 +1,14 @@
 class JqcalendarsController < ApplicationController
   # GET /jqcalendars
   # GET /jqcalendars.json
+
+	def temp
+		puts "Got to temp."
+		respond_to do |format|
+			format.json
+		end
+	end
+
   def index
     @jqcalendars = Jqcalendar.all
 
@@ -40,6 +48,12 @@ class JqcalendarsController < ApplicationController
   # POST /jqcalendars
   # POST /jqcalendars.json
   def create
+		stdatearray = params[:stpartdate].split('/')
+		sttimearray = params[:stparttime].split(':')
+		etdatearray = params[:etpartdate].split('/')
+		ettimearray = params[:etparttime].split(':')
+		params[:jqcalendar][:StartTime] = 2.days.ago
+		params[:jqcalendar][:EndTime] = Time.now
     @jqcalendar = Jqcalendar.new(params[:jqcalendar])
 
     respond_to do |format|
