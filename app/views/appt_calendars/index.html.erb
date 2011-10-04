@@ -1,0 +1,21 @@
+<h1>Listing appt_calendars</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @appt_calendars.each do |appt_calendar| %>
+  <tr>
+    <td><%= link_to 'Show', appt_calendar %></td>
+    <td><%= link_to 'Edit', edit_appt_calendar_path(appt_calendar) %></td>
+    <td><%= link_to 'Destroy', appt_calendar, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Appt calendar', new_appt_calendar_path %>

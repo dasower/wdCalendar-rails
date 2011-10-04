@@ -1,0 +1,21 @@
+<h1>Listing jqcalendars</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @jqcalendars.each do |jqcalendar| %>
+  <tr>
+    <td><%= link_to 'Show', jqcalendar %></td>
+    <td><%= link_to 'Edit', edit_jqcalendar_path(jqcalendar) %></td>
+    <td><%= link_to 'Destroy', jqcalendar, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Jqcalendar', new_jqcalendar_path %>

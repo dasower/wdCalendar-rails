@@ -1,0 +1,17 @@
+<%= form_for(@appt_calendar) do |f| %>
+  <% if @appt_calendar.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@appt_calendar.errors.count, "error") %> prohibited this appt_calendar from being saved:</h2>
+
+      <ul>
+      <% @appt_calendar.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

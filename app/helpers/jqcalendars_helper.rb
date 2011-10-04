@@ -1,0 +1,2 @@
+module JqcalendarsHelper
+end
