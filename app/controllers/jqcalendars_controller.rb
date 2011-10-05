@@ -45,16 +45,30 @@ class JqcalendarsController < ApplicationController
     @jqcalendar = Jqcalendar.find(params[:id])
   end
 
+	def date_me(date,time)
+		date = date.split('/')    
+		time = time.split(':')
+		DateTime.new(date[2].to_i,date[0].to_i,date[1].to_i,time[0].to_i,time[1].to_i)
+	end
+	
+	def date_me_two(datetime)
+    date,time = datetime.split(' ')
+    date_me(date,time)
+  end
+
+  def cleanup_calendar
+    params[:jqcalendar][:StartTime] = date_me(params[:stpartdate],params[:stparttime]) if params[:stpartdate]
+		params[:jqcalendar][:EndTime] = date_me(params[:etpartdate],params[:etparttime]) if params[:etpartdate]
+		params[:jqcalendar] = {} unless params[:jqcalendar]
+	  params[:jqcalendar][:StartTime] = date_me_two(params[:CalendarStartTime]) if params[:CalendarStartTime]
+	  params[:jqcalendar][:EndTime] = date_me_two(params[:CalendarEndTime]) if params[:CalendarEndTime]
+  end
+  
   # POST /jqcalendars
   # POST /jqcalendars.json
   def create
-		stdatearray = params[:stpartdate].split('/')
-		sttimearray = params[:stparttime].split(':')
-		etdatearray = params[:etpartdate].split('/')
-		ettimearray = params[:etparttime].split(':')
-		params[:jqcalendar][:StartTime] = 2.days.ago
-		params[:jqcalendar][:EndTime] = Time.now
-    @jqcalendar = Jqcalendar.new(params[:jqcalendar])
+     cleanup_calendar
+		 @jqcalendar = Jqcalendar.new(params[:jqcalendar])
 
     respond_to do |format|
       if @jqcalendar.save
