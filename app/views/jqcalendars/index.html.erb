@@ -34,7 +34,8 @@
                 onBeforeRequestData: cal_beforerequest,
                 onAfterRequestData: cal_afterrequest,
                 onRequestDataError: cal_onerror, 
-                autoload:false,
+                autoload:true,
+				method: "GET",
                 url: DATA_FEED_URL,  
                 quickAddUrl: DATA_FEED_URL, 
                 quickUpdateUrl: DATA_FEED_URL,
@@ -99,10 +100,12 @@
             }
             function Edit(data)
             {
-               var eurl="jqcalendars?id={0}&start={2}&end={3}&isallday={4}&title={1}";   //needs _method=PUT
+				//var eurl = "/jqcalendars/"+data[0]+"/edit"
+               //var eurl="jqcalendars?id={0}&start={2}&end={3}&isallday={4}&title={1}";   //needs _method=PUT
                 if(data)
                 {
-                    var url = StrFormat(eurl,data);
+                    //var url = StrFormat(eurl,data);
+					var url = "/jqcalendars/"+data[0]+"/edit";
                     OpenModelWindow(url,{ width: 600, height: 400, caption:"Manage  The Calendar",onclose:function(){
                        $("#gridcontainer").reload();
                     }});

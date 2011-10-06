@@ -1156,19 +1156,17 @@
                         param[param.length] = option.extParam[pi];
                     }
                 }
-				
                 $.ajax({
                     type: option.method, //
                     url: option.url,
-                    data: param,				   
+                    data: param,
 			        //dataType: "text",  // fixed jquery 1.4 not support Ms Date Json Format /Date(@Tickets)/
                     dataType: "json",
                     dataFilter: function(data, type) { 
                         //return data.replace(/"\\\/(Date\([0-9-]+\))\\\/"/gi, "new $1");
-                        
                         return data;
                       },
-                    success: function(data) {//function(datastr) {									
+                    success: function(data) {//function(datastr) {
 						//datastr =datastr.replace(/"\\\/(Date\([0-9-]+\))\\\/"/gi, 'new $1');						
                         //var data = (new Function("return " + datastr))();
                         if (data != null && data.error != null) {
@@ -1179,6 +1177,7 @@
                         else {
                             data["start"] = parseDate(data["start"]);
                             data["end"] = parseDate(data["end"]);
+							alert(data.events);
                             $.each(data.events, function(index, value) { 
                                 value[2] = parseDate(value[2]);
                                 value[3] = parseDate(value[3]); 

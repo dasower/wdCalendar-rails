@@ -93,7 +93,8 @@
             $("#Deletebtn").click(function() {
                  if (confirm("Are you sure to remove this event")) {  
                     var param = [{ "name": "calendarId", value: 8}];                
-                    $.post(DATA_FEED_URL + "?method=remove",
+                    $.post(DATA_FEED_URL,
+						type: "DELETE",
                         param,
                         function(data){
                               if (data.IsSuccess) {
@@ -209,13 +210,13 @@
       <div style="clear: both">         
       </div>        
       <div class="infocontainer">            
-        <form action="<%= jqcalendars_path %>?method=adddetails<%#<?php echo $event?"&id=".$event->Id:""; ?>%>" class="fform" id="fmEdit" method="post">                 
+        <form action="<%= jqcalendars_path %><%#<?php echo $event?"&id=".$event->Id:""; ?>%>" class="fform" id="fmEdit" method="post">                 
           <label>                    
             <span>                        *Subject:              
             </span>                    
             <div id="calendarcolor">
             </div>
-            <input MaxLength="200" class="required safe" id="Subject" name="jqcalendar[Subject]" style="width:85%;" type="text" value="<%#Subject%>" >
+            <input MaxLength="200" class="required safe" id="Subject" name="jqcalendar[Subject]" style="width:85%;" type="text" value="<%=@jqcalendar.Subject %>" >
             <input id="colorvalue" name="colorvalue" type="hidden" value="<%#Color%>" />                
           </label>                 
           <label>                    
@@ -241,12 +242,12 @@
           <label>                    
             <span>                        Location:
             </span>                    
-            <input MaxLength="200" id="Location" name="jqcalendar[Location]" style="width:95%;" type="text" value="<%#<?php echo $event?$event->Location:""; ?>%>" />                 
+            <input MaxLength="200" id="Location" name="jqcalendar[Location]" style="width:95%;" type="text" value="<%= @jqcalendar.Location %><%#<?php echo $event?$event->Location:""; ?>%>" />                 
           </label>                 
           <label>                    
             <span>                        Remark:
             </span>                    
-<textarea cols="20" id="Description" name="jqcalendar[Description]" rows="2" style="width:95%; height:70px">
+<textarea cols="20" id="Description" name="jqcalendar[Description]" rows="2" style="width:95%; height:70px"><%= @jqcalendar.Description %>
 <%#<?php echo $event?$event->Description:""; ?>%>
 </textarea>                
           </label>                
