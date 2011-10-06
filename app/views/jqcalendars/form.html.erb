@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
   <head>    
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">    
-
+    <title>Calendar Details</title>    
 	<%= stylesheet_link_tag 'main' %>
 	<%= stylesheet_link_tag 'dp' %>
 	<%= stylesheet_link_tag 'dropdown' %>
@@ -15,7 +15,7 @@
     <%= javascript_include_tag 'jqc/datepicker_lang_US' %>
     <%= javascript_include_tag 'jqc/jquery.datepicker' %>
     <%= javascript_include_tag 'jqc/jquery.dropdown' %>
-    <%= javascript_include_tag 'jqc/jquery.colorselect' %>    
+    <%= javascript_include_tag 'jqc/jquery.colorselect' %>
      
     <script type="text/javascript">
         if (!DateAdd || typeof (DateDiff) != "function") {
@@ -93,8 +93,7 @@
             $("#Deletebtn").click(function() {
                  if (confirm("Are you sure to remove this event")) {  
                     var param = [{ "name": "calendarId", value: 8}];                
-                    $.post(DATA_FEED_URL,
-						type: "DELETE",
+                    $.post(DATA_FEED_URL + "?method=remove",
                         param,
                         function(data){
                               if (data.IsSuccess) {
@@ -166,7 +165,7 @@
         height:16px;     
         border:none;        
         cursor:pointer;        
-        background:url("/icons/cal.gif") no-repeat center 2px;        
+        background:url("sample-css/cal.gif") no-repeat center 2px;        
         margin-left:-22px;    
     }      
     .mask{
@@ -189,19 +188,26 @@
     }
     </style>
   </head>
-  <body> 
-    <div>      
+  <body>
+	<% if false %>
+    <div class="mask">
+      <div>This feature is disabled. Please download this plugin and install it in your machine for full features</div>
+    </div>
+    <div>
+	<% end %>
       <div class="toolBotton">           
         <a id="Savebtn" class="imgbtn" href="javascript:void(0);">                
           <span class="Save"  title="Save the calendar">Save(<u>S</u>)
           </span>          
-        </a>
-		<% unless @jqcalendar.new_record? %>  <%# <?php if($event){ ?> %>
+        </a>                           
+        <%#<?php if($event){ ?>%>
+		<% if false && params[:event] %>
         <a id="Deletebtn" class="imgbtn" href="javascript:void(0);">                    
           <span class="Delete" title="Cancel the calendar">Delete(<u>D</u>)
           </span>                
-        </a>  <%#<?php } ?>%>
+        </a>
 		<% end %>
+        <%#<?php } ?>%>
         <a id="Closebtn" class="imgbtn" href="javascript:void(0);">                
           <span class="Close" title="Close the window" >Close
           </span></a>            
@@ -209,50 +215,53 @@
       </div>                  
       <div style="clear: both">         
       </div>        
-      <div class="infocontainer">            
-        <form action="<%= jqcalendars_path %><%#<?php echo $event?"&id=".$event->Id:""; ?>%>" class="fform" id="fmEdit" method="post">                 
+      <div class="infocontainer">
+		<% if false %>
+        <form action="edit.php" method=adddetails<?php echo $event?"&id=".$event->Id:""; ?>%>" class="fform" id="fmEdit" method="post">                 
+		<% end %>
+		<%= form_tag jqcalendars_path, :html => {:class => "fform", :id => "fmEdit"} %>
+		
+		<% end %>
           <label>                    
             <span>                        *Subject:              
             </span>                    
             <div id="calendarcolor">
             </div>
-            <input MaxLength="200" class="required safe" id="Subject" name="jqcalendar[Subject]" style="width:85%;" type="text" value="<%=@jqcalendar.Subject %>" >
-            <input id="colorvalue" name="colorvalue" type="hidden" value="<%#Color%>" />                
+            <%#<input MaxLength="200" class="required safe" id="Subject" name="Subject" style="width:85%;" type="text" value="<%#<?php echo $event?$event->Subject:"" ?>" />
+			<%= f.text_field :Subject, :class => "required safe", :id => "Subject", :style => "width:85%" %>
+            <input id="colorvalue" name="colorvalue" type="hidden" value="<%#<?php echo $event?$event->Color:"" ?>%>" />                
           </label>                 
           <label>                    
             <span>*Time:
             </span>                    
             <div>  
-				<% if false %>
-				<% if @jqcalendar %><?php if($event){
-					
+              <%#<?php if($event){
                   $sarr = explode(" ", php2JsTime(mySql2PhpTime($event->StartTime)));
                   $earr = explode(" ", php2JsTime(mySql2PhpTime($event->EndTime)));
-              }?><% end %>
-   				<% end %>
+              }?>%>                    
               <input MaxLength="10" class="required date" id="stpartdate" name="stpartdate" style="padding-left:2px;width:90px;" type="text" value="<%#<?php echo $event?$sarr[0]:""; ?>%>" />                       
               <input MaxLength="5" class="required time" id="stparttime" name="stparttime" style="width:40px;" type="text" value="<%#<?php echo $event?$sarr[1]:""; ?>%>" />To                       
               <input MaxLength="10" class="required date" id="etpartdate" name="etpartdate" style="padding-left:2px;width:90px;" type="text" value="<%#<?php echo $event?$earr[0]:""; ?>%>" />                       
               <input MaxLength="50" class="required time" id="etparttime" name="etparttime" style="width:40px;" type="text" value="<%#<?php echo $event?$earr[1]:""; ?>%>" />                                            
               <label class="checkp"> 
-                <input id="IsAllDayEvent" name="IsAllDayEvent" type="checkbox" value="1" />          All Day Event                      
+                <input id="IsAllDayEvent" name="IsAllDayEvent" type="checkbox" value="1" <%#<?php if($event&&$event->IsAllDayEvent!=0) {echo "checked";} ?>%>/>          All Day Event                      
               </label>                    
             </div>                
           </label>                 
           <label>                    
             <span>                        Location:
             </span>                    
-            <input MaxLength="200" id="Location" name="jqcalendar[Location]" style="width:95%;" type="text" value="<%= @jqcalendar.Location %><%#<?php echo $event?$event->Location:""; ?>%>" />                 
+            <input MaxLength="200" id="Location" name="Location" style="width:95%;" type="text" value="<%#<?php echo $event?$event->Location:""; ?>%>" />
           </label>                 
           <label>                    
             <span>                        Remark:
             </span>                    
-<textarea cols="20" id="Description" name="jqcalendar[Description]" rows="2" style="width:95%; height:70px"><%= @jqcalendar.Description %>
+<textarea cols="20" id="Description" name="Description" rows="2" style="width:95%; height:70px">
 <%#<?php echo $event?$event->Description:""; ?>%>
 </textarea>                
           </label>                
-          <input id="timezone" name="timezone" type="hidden" value="" />           
-        </form>         
+          <input id="timezone" name="timezone" type="hidden" value="" />
+        <%#</form>%>
       </div>         
     </div>
   </body>

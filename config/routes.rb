@@ -1,8 +1,13 @@
 Wdcalendar::Application.routes.draw do
   resources :jqcalendars
 
-  resources :appt_calendars
+  resources :appt_calendars do
+		member do
+			post 'temp'
+		end
+	end
 
+	resources :jqcalendars
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
