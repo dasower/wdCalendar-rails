@@ -65,7 +65,7 @@
 
 .bbit-dp .bbit-dp-top
 {
-   background:url("share/hd-sprite.gif") repeat-x 0px -83px; 
+   background:url("/assets/share/hd-sprite.gif") repeat-x 0px -83px; 
 }
 .bbit-dp-top-right,.bbit-dp-top-left{width:18px;}
 .bbit-dp-top-right{text-align:right;}
@@ -91,11 +91,11 @@
 
 .bbit-dp-top-left a
 {
-    background:url(share/left-btn.gif); MARGIN-LEFT: 2px
+    background:url(/assets/share/left-btn.gif); MARGIN-LEFT: 2px
 }
 .bbit-dp-top-right a
 {
-    background:url(share/right-btn.gif); MARGIN-LEFT: 2px
+    background:url(/assets/share/right-btn.gif); MARGIN-LEFT: 2px
 }
 .bbit-dp-inner th,.bbit-dp-inner td{
 border-collapse:separate;
@@ -104,7 +104,7 @@ border-collapse:separate;
 .bbit-dp-inner th
 {
    width:25px;
-   background:#dfecfb url(share/glass-bg.gif) repeat-x left top;
+   background:#dfecfb url(/assets/share/glass-bg.gif) repeat-x left top;
    text-align:right!important;
    border-bottom:1px solid #a3bad9;  
    color:#233d6d;
@@ -149,14 +149,14 @@ border-collapse:separate;
 }
 
 .bbit-dp-inner .bbit-dp-active{cursor:pointer;color:black;}
-.bbit-dp-inner .bbit-dp-selected a{background:#dfecfb url(./default/shared/glass-bg.gif) repeat-x left top;border:1px solid #8db2e3;padding:1px 4px;}
+.bbit-dp-inner .bbit-dp-selected a{background:#dfecfb url(/assets/shared/glass-bg.gif) repeat-x left top;border:1px solid #8db2e3;padding:1px 4px;}
 .bbit-dp-inner .bbit-dp-today a{border:1px solid darkred;padding:1px 4px;}
 .bbit-dp-inner .bbit-dp-selected span{font-weight:bold;}
 .bbit-dp-inner .bbit-dp-prevday a,.bbit-dp-inner .bbit-dp-nextday a{color:#aaa;text-decoration:none!important;}
 .bbit-dp-inner a:hover,.bbit-dp-inner bbit-dp-disabled a:hover{text-decoration:none!important;color:black;background:#ddecfe;}
 .bbit-dp-inner .bbit-dp-disabled a{cursor:default;background:#eee;color:#bbb;}
 
-.bbit-dp-bottom{padding:2px;border-top:1px solid #a3bad9;background:#dfecfb url(share/glass-bg.gif) repeat-x left top;}
+.bbit-dp-bottom{padding:2px;border-top:1px solid #a3bad9;background:#dfecfb url(/assets/share/glass-bg.gif) repeat-x left top;}
 /*.bbit-dp-bottom button {text-decoration:none;text-align:center;text-decoration:none!important;background:#083772;color:white;border:1px solid;border-color:#36c #005 #005 #36c;padding:1px 3px 1px;font:normal 11px arial,helvetica,tahoma,sans-serif;cursor:pointer;}*/
 .bbit-dp-mp{position:absolute;left:0;top:0;background:white;display:none;}
             
@@ -164,12 +164,12 @@ border-collapse:separate;
 td.bbit-dp-mp-month,td.bbit-dp-mp-year,td.bbit-dp-mp-ybtn{border:0 none;text-align:center;vertical-align:middle;width:25%;}
 .bbit-dp-mp-ok{margin-right:3px;}
 .bbit-dp-mp-btns button{ width:45px;text-decoration:none;text-align:center;text-decoration:none!important;background:#083772;color:white;border:1px solid;border-color:#36c #005 #005 #36c;padding:1px 3px 1px;font:normal 11px arial,helvetica,tahoma,sans-serif;cursor:pointer;}
-.bbit-dp-mp-btns{background:#dfecfb url(share/glass-bg.gif) repeat-x left top;}
+.bbit-dp-mp-btns{background:#dfecfb url(/assets/share/glass-bg.gif) repeat-x left top;}
 .bbit-dp-mp-btns td{border-top:1px solid #c5d2df;text-align:center;}
 td.bbit-dp-mp-month a,td.bbit-dp-mp-year a{display:block;padding:2px 4px;text-decoration:none;text-align:center;color:#15428b;}
 td.bbit-dp-mp-month a:hover,td.bbit-dp-mp-year a:hover{color:#15428b;text-decoration:none;cursor:pointer;background:#ddecfe;}
-td.bbit-dp-mp-sel a{padding:1px 3px;background:#dfecfb url(share/glass-bg.gif) repeat-x left top;border:1px solid #8db2e3;}
-.bbit-dp-mp-ybtn a{overflow:hidden;width:15px;height:15px;cursor:pointer;background:transparent url(share/tool-sprites.gif) no-repeat;display:block;margin:0 auto;}
+td.bbit-dp-mp-sel a{padding:1px 3px;background:#dfecfb url(/assets/share/glass-bg.gif) repeat-x left top;border:1px solid #8db2e3;}
+.bbit-dp-mp-ybtn a{overflow:hidden;width:15px;height:15px;cursor:pointer;background:transparent url(/assets/share/tool-sprites.gif) no-repeat;display:block;margin:0 auto;}
 .bbit-dp-mp-ybtn a.bbit-dp-mp-next{background-position:0 -120px;}
 .bbit-dp-mp-ybtn a.bbit-dp-mp-next:hover{background-position:-15px -120px;}
 .bbit-dp-mp-ybtn a.bbit-dp-mp-prev{background-position:0 -105px;}

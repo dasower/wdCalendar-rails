@@ -57,6 +57,7 @@ class JqcalendarsController < ApplicationController
   # PUT /jqcalendars/1
   # PUT /jqcalendars/1.json
   def update
+		interpret_calendar_event
     @jqcalendar = Jqcalendar.find(params[:id])
 
     respond_to do |format|

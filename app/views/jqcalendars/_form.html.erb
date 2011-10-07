@@ -84,10 +84,10 @@
                     $("#etparttime").val(getHM(DateAdd("h", 1, d))).show();
                 }
             });
-            if (check[0].checked) {
-                $("#stparttime").val("00:00").hide();
-                $("#etparttime").val("00:00").hide();
-            }
+            //if (check[0].checked) {
+            //    $("#stparttime").val("00:00").hide();
+            //    $("#etparttime").val("00:00").hide();
+            //}
             $("#Savebtn").click(function() { $("#fmEdit").submit(); });
             $("#Closebtn").click(function() { CloseModelWindow(); });
             $("#Deletebtn").click(function() {
@@ -165,7 +165,7 @@
         height:16px;     
         border:none;        
         cursor:pointer;        
-        background:url("/icons/cal.gif") no-repeat center 2px;        
+        background:url("/assets/icons/cal.gif") no-repeat center 2px;        
         margin-left:-22px;    
     }      
     .mask{
@@ -209,15 +209,20 @@
       <div style="clear: both">         
       </div>        
       <div class="infocontainer">            
-	<%= form_for @jqcalendar do |f| %>
+	<%= form_for @jqcalendar, :html => { :class => "fform", :id => "fmEdit" } do |f| %>
 <!--        <form action="<%#= jqcalendars_path %><%#<?php echo $event?"&id=".$event->Id:""; ?>%>" class="fform" id="fmEdit" method="post"> -->
           <label>                    
             <span>                        *Subject:              
             </span>                    
             <div id="calendarcolor">
             </div>
-            <input MaxLength="200" class="required safe" id="Subject" name="jqcalendar[Subject]" style="width:85%;" type="text" value="<%=@jqcalendar.Subject %>" >
-            <input id="colorvalue" name="colorvalue" type="hidden" value="<%#Color%>" />                
+<!--            <input MaxLength="200" class="required safe" id="Subject" name="jqcalendar[Subject]" style="width:85%;" type="text" value="<%=@jqcalendar.Subject %>" > -->
+								<%= f.text_field :Subject, :maxlength => 200, :class => "required safe", :id => "Subject", :style => "width:85%" %>
+
+<!-- FIX - Deal with colorvalue -->
+
+						<%= hidden_field_tag :colorvalue, :id => "colorvalue" %>
+<!--            <input id="colorvalue" name="colorvalue" type="hidden" value="<%#Color%>" /> -->
           </label>                 
           <label>                    
             <span>*Time:
@@ -226,26 +231,52 @@
 				<% if false %>
 <!--				<?php if($event){$sarr = explode(" ", php2JsTime(mySql2PhpTime($event->StartTime)));$earr = explode(" ", php2JsTime(mySql2PhpTime($event->EndTime)));}?> -->
    				<% end %>
-              <input MaxLength="10" class="required date" id="stpartdate" name="stpartdate" style="padding-left:2px;width:90px;" type="text" value="<%#<?php echo $event?$sarr[0]:""; ?>%>" />                       
-              <input MaxLength="5" class="required time" id="stparttime" name="stparttime" style="width:40px;" type="text" value="<%#<?php echo $event?$sarr[1]:""; ?>%>" />To                       
-              <input MaxLength="10" class="required date" id="etpartdate" name="etpartdate" style="padding-left:2px;width:90px;" type="text" value="<%#<?php echo $event?$earr[0]:""; ?>%>" />                       
-              <input MaxLength="50" class="required time" id="etparttime" name="etparttime" style="width:40px;" type="text" value="<%#<?php echo $event?$earr[1]:""; ?>%>" />                                            
-              <label class="checkp"> 
-                <input id="IsAllDayEvent" name="IsAllDayEvent" type="checkbox" value="1" />          All Day Event                      
+
+<!-- FIX - Deal with initial value  -->
+
+							<%= text_field_tag :stpartdate, datetime_to_m_d_y(@jqcalendar.StartTime), :maxlength => 10, :class => "required date", :id => "stpartdate", :style => "padding-left:2px;width:90px;" %>
+<!--              <input MaxLength="10" class="required date" id="stpartdate" name="stpartdate" style="padding-left:2px;width:90px;" type="text" value="<%#<?php echo $event?$sarr[0]:""; ?>%>" />  -->
+
+<!-- FIX - Deal with initial value -->
+
+							<%= text_field_tag :stparttime, datetime_to_h_m(@jqcalendar.StartTime), :maxlength => 5, :class => "required time", :id => "stparttime", :style => "width:40px;" %> 
+<!--              <input MaxLength="5" class="required time" id="stparttime" name="stparttime" style="width:40px;" type="text" value="<%#<?php echo $event?$sarr[1]:""; ?>%>" />To  -->
+
+<!-- FIX - Deal with initial value -->
+
+							<%= text_field_tag :etpartdate, datetime_to_m_d_y(@jqcalendar.EndTime), :maxlength => 10, :class => "required date", :id => "etpartdate", :style => "padding-left:2px;width:90px;" %>
+<!--              <input MaxLength="10" class="required date" id="etpartdate" name="etpartdate" style="padding-left:2px;width:90px;" type="text" value="<%#<?php echo $event?$earr[0]:""; ?>%>" />  -->
+
+<!-- FIX - Deal with initial value -->
+
+							<%= text_field_tag :etparttime, datetime_to_h_m(@jqcalendar.EndTime), :maxlength => 5, :class => "required time", :id => "etparttime", :style => "width:40px;" %>
+<!--              <input MaxLength="50" class="required time" id="etparttime" name="etparttime" style="width:40px;" type="text" value="<%#<?php echo $event?$earr[1]:""; ?>%>" />  -->
+
+              <label class="checkp">
+
+<!-- FIX - Deal with IsAllDayEvent default value from click  -->
+<!-- FIX - Javascript breaks - Cannot read property 'checked' of undefined  -->
+
+							<%#= f.check_box :IsAllDayEvent, :value => 1 %>
+<!--                <input id="IsAllDayEvent" name="IsAllDayEvent" type="checkbox" value="1" />  -->
+<!-- All Day Event  -->
               </label>                    
             </div>                
           </label>                 
           <label>                    
             <span>                        Location:
-            </span>                    
-            <input MaxLength="200" id="Location" name="jqcalendar[Location]" style="width:95%;" type="text" value="<%= @jqcalendar.Location %><%#<?php echo $event?$event->Location:""; ?>%>" />                 
+            </span>
+							<%= f.text_field :Location, :maxlength => 200, :id => "Location", :style => "width:85%" %>
+
+<!--            <input MaxLength="200" id="Location" name="jqcalendar[Location]" style="width:95%;" type="text" value="<%= @jqcalendar.Location %><%#<?php echo $event?$event->Location:""; ?>%>" /> -->
           </label>                 
           <label>                    
             <span>                        Remark:
-            </span>                    
-<textarea cols="20" id="Description" name="jqcalendar[Description]" rows="2" style="width:95%; height:70px"><%= @jqcalendar.Description %>
-<%#<?php echo $event?$event->Description:""; ?>%>
-</textarea>                
+            </span>
+							<%= f.text_area :Description, :id => "Description", :rows => 2, :style => "width:85%", :height => "70px" %> 
+<!-- 						<textarea cols="20" id="Description" name="jqcalendar[Description]" rows="2" style="width:95%; height:70px"><%= @jqcalendar.Description %> -->
+<!--						<?php echo $event?$event->Description:""; ?>  -->
+<!--						</textarea>  -->
           </label>                
           <input id="timezone" name="timezone" type="hidden" value="" />           
 <!--        </form>         -->
