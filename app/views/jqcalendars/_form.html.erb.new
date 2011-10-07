@@ -1,0 +1,5 @@
+<%= form_for @jqcalendar do |f| %>
+	<%= f.label :Location %><br />
+	<%= f.text_field :Location %><br />
+	<%= f.submit %>
+<% end %>
