@@ -29,7 +29,8 @@
                 showday: new Date(),
                 EditCmdhandler:Edit,
                 DeleteCmdhandler:Delete,
-                ViewCmdhandler:View,    
+                ViewCmdhandler:View,
+								quickUpdateHandler:Update,
                 onWeekOrMonthToDay:wtd,
                 onBeforeRequestData: cal_beforerequest,
                 onAfterRequestData: cal_afterrequest,
@@ -128,16 +129,23 @@
                 $.alerts.cancelButton="Cancel";  
                 hiConfirm("Are You Sure to Delete this Event", 'Confirm', function(r){ r && quickd_event(data);});
             }
+						function Update(data, param)
+            {
+               $.post(op.url+'/'+data[0].value,
+											{ _method:"put",
+                        CalendarStartTime:data[1].value,
+                        CalendarEndTime:data[2].value,
+                        timezone:data[3].value }, function(){},"json");
+            }
 
             function quickd_event(data) { // FIX (maybe) - Very similar to quickd() in jquery.calendar.js
- alert("HI!");
               $("#bbit-cs-buddle").css("visibility", "hidden");
               var calid = $("#bbit-cs-id").val();
               //var param = [{ "name": "calendarId", value: calid },
               //            { "name": "type", value: type}];
               var de = rebyKey(calid, true);
               op.onBeforeRequestData && op.onBeforeRequestData(3);
-              $.post(op.quickDeleteUrl+'/'+data[0], {_method:"delete"}, function(data) {
+              $.post(op.quickDeleteUrl+'/'+data[0], { _method:"delete" }, function(data) {
                   if (data) {             
                       if (data.IsSuccess) {
                           de = null;  

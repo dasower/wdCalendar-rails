@@ -107,9 +107,16 @@ class JqcalendarsController < ApplicationController
     @jqcalendars = Jqcalendar.where(conditions)
     @events = []
     @jqcalendars.each do |j|
-      @events << [j.id,j.Subject,j.StartTime,j.EndTime,0,j.IsAllDayEvent,j.RecurringRule,1,1,j.Location,""]
+			st = ruby_datetime_to_JS_time(j.StartTime)
+			et = ruby_datetime_to_JS_time(j.EndTime)
+      @events << [j.id,j.Subject,st,et,0,j.IsAllDayEvent,j.RecurringRule,1,1,j.Location,""]
     end
   end
+
+	def ruby_datetime_to_JS_time(time)
+		time -= params[:timezone].to_i.hours if params[:timezone]
+		time
+	end
   
   def get_date(date)
     date = date.split('/')
@@ -119,7 +126,7 @@ class JqcalendarsController < ApplicationController
 	def date_me(date,time)
 		date = date.split('/') if date
 		time = time.split(':') if time
-		DateTime.new(date[2].to_i,date[0].to_i,date[1].to_i+1,time[0].to_i,time[1].to_i) if(date || time)
+		DateTime.new(date[2].to_i,date[0].to_i,date[1].to_i,time[0].to_i,time[1].to_i) if(date || time)
 	end
 	
 	def date_me_two(datetime)
