@@ -1177,7 +1177,6 @@
                         else {
                             data["start"] = parseDate(data["start"]);
                             data["end"] = parseDate(data["end"]);
-							alert(data.events);
                             $.each(data.events, function(index, value) { 
                                 value[2] = parseDate(value[2]);
                                 value[3] = parseDate(value[3]); 

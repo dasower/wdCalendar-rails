@@ -73,8 +73,10 @@ class JqcalendarsController < ApplicationController
   # DELETE /jqcalendars/1
   # DELETE /jqcalendars/1.json
   def destroy
-    @jqcalendar = Jqcalendar.find(params[:id])
-    @jqcalendar.destroy
+		unless params[:cancel]
+    	@jqcalendar = Jqcalendar.find(params[:id])
+    	@jqcalendar.destroy
+		end
 
     respond_to do |format|
       format.html { redirect_to jqcalendars_url }

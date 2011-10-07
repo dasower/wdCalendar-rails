@@ -35,7 +35,7 @@
                 onAfterRequestData: cal_afterrequest,
                 onRequestDataError: cal_onerror, 
                 autoload:true,
-				method: "GET",
+                method: "GET",
                 url: DATA_FEED_URL,  
                 quickAddUrl: DATA_FEED_URL, 
                 quickUpdateUrl: DATA_FEED_URL,
@@ -100,13 +100,16 @@
             }
             function Edit(data)
             {
-				//var eurl = "/jqcalendars/"+data[0]+"/edit"
-               //var eurl="jqcalendars?id={0}&start={2}&end={3}&isallday={4}&title={1}";   //needs _method=PUT
                 if(data)
                 {
-                    //var url = StrFormat(eurl,data);
-					var url = "/jqcalendars/"+data[0]+"/edit";
-                    OpenModelWindow(url,{ width: 600, height: 400, caption:"Manage  The Calendar",onclose:function(){
+                  var url = "";
+                  if(data[0] == 0) {
+                    url = "/jqcalendars/new";
+                  }
+                  else {
+                    url = "/jqcalendars/"+data[0]+"/edit";
+                  }
+                  OpenModelWindow(url,{ width: 600, height: 400, caption:"Manage The Calendar",onclose:function(){
                        $("#gridcontainer").reload();
                     }});
                 }
@@ -119,13 +122,57 @@
                 });
                 alert(str);               
             }    
-            function Delete(data,callback)
-            {           
-                
+            function Delete(data,callback) // No longer using the standard callback
+            { 
                 $.alerts.okButton="Ok";  
                 $.alerts.cancelButton="Cancel";  
-                hiConfirm("Are You Sure to Delete this Event", 'Confirm',function(r){ r && callback(0);});           
+                hiConfirm("Are You Sure to Delete this Event", 'Confirm', function(r){ r && quickd_event(data);});
             }
+
+            function quickd_event(data) { // FIX (maybe) - Very similar to quickd() in jquery.calendar.js
+ alert("HI!");
+              $("#bbit-cs-buddle").css("visibility", "hidden");
+              var calid = $("#bbit-cs-id").val();
+              //var param = [{ "name": "calendarId", value: calid },
+              //            { "name": "type", value: type}];
+              var de = rebyKey(calid, true);
+              op.onBeforeRequestData && op.onBeforeRequestData(3);
+              $.post(op.quickDeleteUrl+'/'+data[0], {_method:"delete"}, function(data) {
+                  if (data) {             
+                      if (data.IsSuccess) {
+                          de = null;  
+                          op.onAfterRequestData && op.onAfterRequestData(3);
+                      }       
+                      else {
+                          op.onRequestDataError && op.onRequestDataError(3, data);
+                          Ind(de);
+                          //render(); // FIX - render() is not available here
+                          op.onAfterRequestData && op.onAfterRequestData(3);
+                      }       
+                  }
+              }, "json");
+              //render(); //FIX - render() is not available here
+            }
+        function rebyKey(key, remove) { // FIX - copied out of jquery.calendar.js - fix duplication later
+            if (op.eventItems && op.eventItems.length > 0) {
+                var sl = op.eventItems.length;
+                var i = -1;     
+                for (var j = 0; j < sl; j++) {
+                    if (op.eventItems[j][0] == key) {
+                        i = j;  
+                        break;
+                    }   
+                }   
+                if (i >= 0) {
+                    var t = op.eventItems[i];
+                    if (remove) {
+                        op.eventItems.splice(i, 1);
+                    }                   
+                    return t;               
+                }   
+            }   
+            return null;            
+        }
             function wtd(p)
             {
                if (p && p.datestrshow) {

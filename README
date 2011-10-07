@@ -1,1 +1,9 @@
-This is the start of a rails-ready wdCalendar.  It is not yet finished.
+Calendar implementation in progress.
+
+Calender currently performs a RESTful HTTP POST to Jqcalendars Controller.
+## ISSUE ##
+The offset hour needs to be corrected.
+
+Currently working on implementing a RESTful HTTP PUT.
+
+Next will be DELETE.
