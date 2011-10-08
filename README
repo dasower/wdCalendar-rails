@@ -1,9 +1,5 @@
 Calendar implementation in progress.
 
-Calender currently performs a RESTful HTTP POST to Jqcalendars Controller.
-## ISSUE ##
-The offset hour needs to be corrected.
+Basic functionality working.
 
-Currently working on implementing a RESTful HTTP PUT.
-
-Next will be DELETE.
+jQuery page reload after calendar interaction not working yet.

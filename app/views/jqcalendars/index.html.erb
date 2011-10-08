@@ -111,7 +111,7 @@
                     url = "/jqcalendars/"+data[0]+"/edit";
                   }
                   OpenModelWindow(url,{ width: 600, height: 400, caption:"Manage The Calendar",onclose:function(){
-                       $("#gridcontainer").reload();
+                       $("#gridcontainer").reload();// FIX - I don't think this is actually being called
                     }});
                 }
             }    
@@ -132,10 +132,34 @@
 						function Update(data, param)
             {
                $.post(op.url+'/'+data[0].value,
-											{ _method:"put",
-                        CalendarStartTime:data[1].value,
-                        CalendarEndTime:data[2].value,
-                        timezone:data[3].value }, function(){},"json");
+									{ 
+										_method:"put",
+                  	CalendarStartTime:data[1].value,
+                  	CalendarEndTime:data[2].value,
+                  	timezone:data[3].value,
+										
+									},
+									function(data) {
+                       $("#gridcontainer").reload(); //FIX - this isn't refreshing the gridcontainer
+                       //window.location="<%= jqcalendars_path %>"; // FIX - This refreshed the entire DOM
+										/*if (data) {
+                            if (data.IsSuccess == true) {
+                                op.isloading = false;
+                                op.onAfterRequestData && op.onAfterRequestData(4);
+                            }   
+                            else {
+                                op.onRequestDataError && op.onRequestDataError(4, data);
+                                op.isloading = false;                 
+                                d = rebyKey(data.id, true);
+                                //d[2] = os;
+                                //d[3] = od;
+                                //Ind(d);
+                       //         render();
+                                d = null;
+                                op.onAfterRequestData && op.onAfterRequestData(4);
+                            }
+                      }*/
+									}, "json");
             }
 
             function quickd_event(data) { // FIX (maybe) - Very similar to quickd() in jquery.calendar.js

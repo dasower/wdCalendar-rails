@@ -63,7 +63,7 @@ class JqcalendarsController < ApplicationController
     respond_to do |format|
       if @jqcalendar.update_attributes(params[:jqcalendar])
         format.html { redirect_to @jqcalendar, notice: 'Jqcalendar was successfully updated.' }
-        format.json { head :ok }
+        format.json { render json: @jqcalendar }
       else
         format.html { render action: "edit" }
         format.json { render json: @jqcalendar.errors, status: :unprocessable_entity }
@@ -140,7 +140,7 @@ class JqcalendarsController < ApplicationController
 		params[:jqcalendar] = {} unless params[:jqcalendar]
 	  params[:jqcalendar][:StartTime] = date_me_two(params[:CalendarStartTime]) if params[:CalendarStartTime]
 	  params[:jqcalendar][:EndTime] = date_me_two(params[:CalendarEndTime]) if params[:CalendarEndTime]
-	  params[:jqcalendar][:Description] = params[:CalendarTitle] if params[:CalendarTitle]
+	  params[:jqcalendar][:Subject] = params[:CalendarTitle] if params[:CalendarTitle]
 	  params[:jqcalendar][:IsAllDayEvent] = params[:IsAllDayEvent]
   end
   
