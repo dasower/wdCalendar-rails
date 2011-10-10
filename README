@@ -1,5 +1,3 @@
-Calendar implementation in progress.
-
-Basic functionality working.
-
-jQuery page reload after calendar interaction not working yet.
+IMPORTANT UPDATE:
+After working on this for a while, I discovered fullcalendar_rails.  FullCalendar is much easier to integrate.  I am discontinuing this project.
+I strongly recommend checking out fullcalendar_rails at https://github.com/vinsol/fullcalendar_rails 
