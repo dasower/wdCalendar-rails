@@ -14,7 +14,6 @@ class JqcalendarsController < ApplicationController
   # GET /jqcalendars/1.json
   def show
     @jqcalendar = Jqcalendar.find(params[:id])
-		render :layout => false
     #respond_to do |format|
     #  format.html # show.html.erb
     #  format.json { render json: @jqcalendar }
